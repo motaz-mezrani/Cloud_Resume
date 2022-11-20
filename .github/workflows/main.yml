@@ -21,7 +21,6 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install boto3
         python -m pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run test-get
       run: cd cloud-resume-challenge/get-function && pytest app.py
     - name: Run test-put
