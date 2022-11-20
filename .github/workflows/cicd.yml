@@ -1,4 +1,4 @@
-name: main
+name: cicd
 on: push
 
 jobs:
@@ -19,6 +19,6 @@ jobs:
         python -m pip install boto3
         python -m pip install flake8 pytest
     - name: Run test-get
-      run:  cd cloud-resume-challenge/get-function && pytest ./
+      run:  cd cloud-resume-challenge/tests && pytest test_get.py
     - name: Run test-put
-      run: cd cloud-resume-challenge/put-function && pytest ./
+      run: cd cloud-resume-challenge/put-function && pytest test_put.py
