@@ -19,6 +19,6 @@ jobs:
         python -m pip install boto3
         python -m pip install flake8 pytest
     - name: Run test-get
-      run: cd cloud-resume-challenge/get-function && pytest app.py
+      run: cd cloud-resume-challenge/get-function && pytest ./app.py
     - name: Run test-put
-      run: cd cloud-resume-challenge/put-function && pytest app.py
+      run: cd cloud-resume-challenge/put-function && pytest ./app.py
