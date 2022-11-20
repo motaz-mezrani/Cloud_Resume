@@ -6,24 +6,19 @@ jobs:
 
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.8", "3.9"]
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python 3.8
       uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+        python-version: 3.8
+    - name: Install package
+      run: python setup.py install
+    - name: Install pytest
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Test get-function
-      run: |
-        cd cloud-resume-challenge/get-function && pytest ./ && cd ../../ 
-    - name: Test put-function
-      run: |
-        cd cloud-resume-challenge/put-function && pytest ./ && cd ../../          
+        pip install pytest
+    - name: Run test-get
+      run: pytest cloud-resume-challenge/get-function
+    - name: Run test-put
+      run: pytest cloud-resume-challenge/put-function
