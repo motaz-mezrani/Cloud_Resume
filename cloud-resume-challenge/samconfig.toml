@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "cloud-resume-challenge"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1c9vbyviyna0c"
+s3_prefix = "cloud-resume-challenge"
+region = "us-east-1"
+profile = "motaz"
+capabilities = "CAPABILITY_IAM"
+disable_rollback = false
+image_repositories = []
