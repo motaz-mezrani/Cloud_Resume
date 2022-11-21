@@ -13,12 +13,27 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: 3.9
-    - name: Install dependencies
+    - name: Install linting libraries
+      id: lint-for-getfunction
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install boto3
-        python -m pip install flake8 pytest
-    - name: Run test-get
-      run:  cd cloud-resume-challenge/tests && pytest -v test_get.py
-    - name: Run test-put
-      run: cd cloud-resume-challenge/put-function && python -m pytest -v test_put.py
+          cd cloud-resume-challenge/get-function
+          pip install flake8
+    - name: Lint with flake8
+      id: lint-get
+      run: |
+          # Select identifies which errors should cause the job to fail
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # The exit zero flag will show errors as warnings and not fail the run
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Install linting libraries
+      id: lin-for-put-function
+      run: |
+          cd cloud-resume-challenge/put-function
+          pip install flake8
+    - name: Lint with flake8
+      id: lint-put
+      run: |
+          # Select identifies which errors should cause the job to fail
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # The exit zero flag will show errors as warnings and not fail the run
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
