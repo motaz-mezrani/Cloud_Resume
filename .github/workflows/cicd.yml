@@ -21,4 +21,4 @@ jobs:
     - name: Run test-get
       run:  cd cloud-resume-challenge/tests && python -m pytest -v test_get.py
     - name: Run test-put
-      run: cd cloud-resume-challenge/put-function && pytest test_put.py
+      run: cd cloud-resume-challenge/put-function && python -m pytest -v test_put.py
