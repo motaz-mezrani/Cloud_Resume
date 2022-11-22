@@ -2,7 +2,7 @@ name: cicd
 on: push
 
 jobs:
-  test-api:
+  test-python-code:
 
     runs-on: ubuntu-latest
     timeout-minutes: 2
@@ -18,7 +18,7 @@ jobs:
       run: |
           cd cloud-resume-challenge/get-function
           pip install flake8
-    - name: Lint with flake8
+    - name: Lint with flake8 for get-function
       id: lint-get
       run: |
           # Select identifies which errors should cause the job to fail
@@ -30,10 +30,27 @@ jobs:
       run: |
           cd cloud-resume-challenge/put-function
           pip install flake8
-    - name: Lint with flake8
+    - name: Lint with flake8 for put-function
       id: lint-put
       run: |
           # Select identifies which errors should cause the job to fail
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # The exit zero flag will show errors as warnings and not fail the run
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  build-and-deploy-infra:
+    needs: test-python-code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: sam build
+        working-directory: cloud-resume-challenge
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+        working-directory: cloud-resume-challenge          
