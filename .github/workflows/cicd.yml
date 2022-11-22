@@ -55,5 +55,5 @@ jobs:
           aws-region: us-east-1
       - run: sam build
         working-directory: cloud-resume-challenge
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --profile ${{ secrets.PROFILE_NAME }} 
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --profile motaz 
         working-directory: cloud-resume-challenge          
