@@ -53,7 +53,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+          aws-profile: ${{ secrets.AWS_PROFILE }}
       - run: sam build
         working-directory: cloud-resume-challenge
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --profile ${{ secrets.AWS_PROFILE }}
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --profile 
         working-directory: cloud-resume-challenge          
