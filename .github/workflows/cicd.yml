@@ -56,5 +56,5 @@ jobs:
           aws-profile: ${{ secrets.AWS_PROFILE }}
       - run: sam build
         working-directory: cloud-resume-challenge
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --profile 
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --profile ${{ secrets.AWS_PROFILE }}
         working-directory: cloud-resume-challenge          
