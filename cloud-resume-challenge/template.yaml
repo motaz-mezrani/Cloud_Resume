@@ -131,7 +131,7 @@ Resources:
         DynamoDBStreamEvent:
           Type: DynamoDB
           Properties:
-            Stream: arn:aws:dynamodb:us-east-1:684807520213:table/cloud-resume-challenge
+            Stream: arn:aws:dynamodb:us-east-1:684807520213:table/cloud-resume-challenge/stream/2023-01-06T18:03:36.210
             StartingPosition: LATEST
             BatchSize: 1
 
