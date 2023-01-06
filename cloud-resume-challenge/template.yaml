@@ -131,8 +131,7 @@ Resources:
         DynamoDBStreamEvent:
           Type: DynamoDB
           Properties:
-            Stream:
-              !GetAtt cloud-resume-challenge.StreamArn
+            Stream: arn:aws:dynamodb:us-east-1:684807520213:table/cloud-resume-challenge
             StartingPosition: LATEST
             BatchSize: 1
 
