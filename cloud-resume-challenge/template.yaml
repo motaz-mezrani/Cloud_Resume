@@ -28,6 +28,8 @@ Resources:
       AttributeDefinitions:
         - AttributeName: "ID"
           AttributeType: "S"
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES    
       KeySchema:
         - AttributeName: "ID"
           KeyType: "HASH"
@@ -116,4 +118,21 @@ Resources:
           Properties:
             Path: /put
             Method: get
+
+  StreamFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:    
+      CodeUri: Stream-function/
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Events:
+        DynamoDBStreamEvent:
+          Type: DynamoDB
+          Properties:
+            Stream:
+              !GetAtt cloud-resume-challenge.StreamArn
+            StartingPosition: LATEST
+            BatchSize: 1
 
